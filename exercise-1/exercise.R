@@ -9,18 +9,19 @@ library(jsonlite)
 
 # For what years does the API have statistical data?
 response <- GET("http://data.unhcr.org/api/stats/time_series_years.json")
-body <- content(response,"text")
-years <-fromJSON(body)
-years
+body <- fromJSON(content(response,"text"))
+View(body)
 
 # What is the "country code" for the "Syrian Arab Republic"?
-
-county.code.response <- GET("http://data.unhcr.org/api/countries/list")
-
+query.params <- list(year=2013, county_of_origin="SYR", country_of_residence="USA")
+county <- GET("http://data.unhcr.org/api/stats/persons_of_concern.json", query=query.params)
+new.body <- fromJSON(content(county, "text"))
+View(new.body)
 # How many persons of concern from Syria applied for residence in the USA in 2013?
 # Hint: you'll need to use a query parameter
 # Use the `str()` function to print the data of interest
 # See http://www.unhcr.org/en-us/who-we-help.html for details on these terms
+
 
 
 ## And this was only 2013...
